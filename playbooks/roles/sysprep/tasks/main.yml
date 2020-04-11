@@ -5,3 +5,9 @@
 
 - name: Install base applications
   include_tasks: base_apps.yml
+
+- name: Change shell for users
+  user:
+    name: "{{ item }}"
+    shell: "/usr/bin/zsh"
+  loop: "{{ users }}"
