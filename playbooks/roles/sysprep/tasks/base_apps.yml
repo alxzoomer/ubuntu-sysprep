@@ -1,0 +1,14 @@
+---
+- name: Install base applications
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - vim
+      - zsh
+      - git
+      - mc
+      - build-essential
+      - file
+      - tmux
