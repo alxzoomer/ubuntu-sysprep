@@ -1,0 +1,4 @@
+---
+- name: Perform packages update
+  include_tasks: update.yml
+  when: sysprep_install_updates | bool
