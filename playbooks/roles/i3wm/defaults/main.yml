@@ -1,0 +1,5 @@
+i3wm_user: "{{ ansible_user }}"
+i3lock_images_dir: ~/.images
+i3lock_image_size: 1024x768
+i3lock_image_src_file: "{{ i3lock_images_dir }}/lockscreen.png"
+i3lock_image_file: "{{ i3lock_images_dir }}/lockscreen-{{ i3lock_image_size }}.png"

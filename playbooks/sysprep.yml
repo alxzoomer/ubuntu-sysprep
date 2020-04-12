@@ -6,3 +6,5 @@
   gather_facts: True
   roles:
     - sysprep
+    - i3wm
+    - soft

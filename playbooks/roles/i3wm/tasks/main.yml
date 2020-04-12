@@ -1,0 +1,65 @@
+---
+- name: Install i3wm
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - i3
+      - rofi
+      - gxkb
+
+- name: Configure i3
+  block:
+    - name: Create i3 config directory
+      file:
+        path: ~/.config/i3
+        state: directory
+
+    - name: Copy i3 config
+      template:
+        src: i3.config.j2
+        dest: ~/.config/i3/config
+
+    - name: Create .images directory
+      file:
+        path: "{{ i3lock_images_dir }}"
+        state: directory
+
+    - name: Copy images
+      copy:
+        src: lockscreen.png
+        dest: "{{ i3lock_image_src_file }}"
+      register: copy_lockscreen_image_result
+
+    - name: Remove old target image
+      file:
+        path: "{{ i3lock_image_file }}"
+        state: absent
+      when: copy_lockscreen_image_result.changed
+
+    - name: Get target image
+      stat:
+        path: "{{ i3lock_image_file }}"
+      register: i3lock_image_file_stat
+
+    - name: Resize image
+      shell: >-
+        convert {{ i3lock_image_src_file }}
+        -resize {{ i3lock_image_size }}^
+        -gravity center
+        -extent {{ i3lock_image_size }}
+        {{ i3lock_image_file }}
+      when: not i3lock_image_file_stat.stat.exists
+
+    - name: Create gxkb config dir
+      file:
+        path: ~/.config/gxkb
+        state: directory
+
+    - name: Upload gxkb.cfg
+      template:
+        src: gxkb.cfg.j2
+        dest: ~/.config/gxkb/gxkb.cfg
+
+  become_user: "{{ i3wm_user }}"
