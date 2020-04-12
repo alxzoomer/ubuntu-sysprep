@@ -8,6 +8,8 @@
       - i3
       - rofi
       - gxkb
+      - xss-lock
+      - feh
 
 - name: Configure i3
   block:
