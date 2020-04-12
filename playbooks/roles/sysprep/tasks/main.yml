@@ -11,3 +11,11 @@
     name: "{{ item }}"
     shell: "/usr/bin/zsh"
   loop: "{{ users }}"
+
+- name: Install dotfiles
+  include_tasks: dotfiles.yml
+  vars:
+    ansible_become_user: "{{ target_user }}"
+  loop: "{{ users }}"
+  loop_control:
+    loop_var: target_user
