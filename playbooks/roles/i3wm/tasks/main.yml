@@ -10,6 +10,7 @@
       - gxkb
       - xss-lock
       - feh
+      - network-manager-vpnc-gnome
 
 - name: Configure i3
   block:
