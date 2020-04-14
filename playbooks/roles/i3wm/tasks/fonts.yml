@@ -1,0 +1,40 @@
+---
+- name: Create fonts download directory
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - ~/.fonts
+    - ~/.temp
+
+- name: Get fonts stats
+  stat:
+    path: "~/.temp/{{ item }}"
+  register: r
+  loop:
+    - JetBrainsMono.zip
+
+- name: Debug
+  set_fact:
+    not_all_fonts_exists: false in (r.results | map(attribute='stat.exists') | list)
+
+- name: Download fonts
+  get_url:
+    url: "{{ item.src }}"
+    dest: "~/.temp/{{ item.dest }}"
+  loop:
+    - src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
+      dest: JetBrainsMono.zip
+  when: not_all_fonts_exists | bool
+
+- name: Extract fonts
+  unarchive:
+    src: "~/.temp/{{ item.src }}"
+    dest: "~/.fonts"
+    remote_src: yes
+  loop:
+    - src: JetBrainsMono.zip
+      dest: JetBrainsMono
+  notify: Rebuild fonts cache
+
+- meta: flush_handlers
