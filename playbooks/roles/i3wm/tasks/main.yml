@@ -88,4 +88,14 @@
         src: xresources/Xresources.j2
         dest: ~/.Xresources
 
+    - name: Create xfce4 terminal config dir
+      file:
+        path: "{{ xfce4_terminal_config_dir }}"
+        state: directory
+
+    - name: Copy xfce4 terminal config
+      template:
+        src: xfce4/terminalrc.j2
+        dest: "{{ xfce4_terminal_config_dir }}/terminalrc"
+
   become_user: "{{ i3wm_user }}"

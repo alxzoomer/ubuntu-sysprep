@@ -6,3 +6,4 @@ i3lock_image_file: "{{ i3lock_images_dir }}/lockscreen-{{ i3lock_image_size }}.p
 xresources_dir: .Xresources.d
 xresources_fonts_path: "{{ xresources_dir }}/fonts"
 xresources_urxvt_path: "{{ xresources_dir }}/urxvt"
+xfce4_terminal_config_dir: ~/.config/xfce4/terminal
