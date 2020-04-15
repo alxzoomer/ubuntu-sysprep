@@ -70,4 +70,22 @@
         src: gxkb.cfg.j2
         dest: ~/.config/gxkb/gxkb.cfg
 
+    - name: "Create {{ xresources_dir }}"
+      file:
+        path: "~/{{ xresources_dir }}"
+        state: directory
+
+    - name: Copy Xresources configs
+      template:
+        src: "xresources/{{ item }}.j2"
+        dest: "~/{{ xresources_dir }}/{{ item }}"
+      loop:
+        - fonts
+        - urxvt
+
+    - name: Copy .Xresources file
+      template:
+        src: xresources/Xresources.j2
+        dest: ~/.Xresources
+
   become_user: "{{ i3wm_user }}"
