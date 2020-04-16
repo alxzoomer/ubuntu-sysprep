@@ -1,8 +1,10 @@
 i3wm_user: "{{ ansible_user }}"
+i3wm_config_dir: ~/.config/i3
 i3lock_images_dir: ~/.images
 i3lock_image_size: 1024x768
 i3lock_image_src_file: "{{ i3lock_images_dir }}/lockscreen.png"
 i3lock_image_file: "{{ i3lock_images_dir }}/lockscreen-{{ i3lock_image_size }}.png"
+i3status_config_dir: ~/.config/i3status
 
 # Fonts configuration
 i3wm_fonts_dir: "~/.fonts"
@@ -19,6 +21,8 @@ i3wm_nerd_fonts:
   - Go-Mono
   - DejaVuSansMono
 
+# gxkb keyboard layout applet/switcher
+gxkb_config_dir: ~/.config/gxkb
 xresources_dir: .Xresources.d
 xresources_fonts_path: "{{ xresources_dir }}/fonts"
 xresources_urxvt_path: "{{ xresources_dir }}/urxvt"
