@@ -5,7 +5,6 @@
   become_user: root
   gather_facts: True
   roles:
-    # TODO: Uncomment
-    # - sysprep
+    - sysprep
     - i3wm
     - soft
