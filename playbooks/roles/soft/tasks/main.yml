@@ -40,3 +40,10 @@
     name: typora
     state: present
 
+- name: Install soft from ubuntu repo
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - telegram-desktop
+

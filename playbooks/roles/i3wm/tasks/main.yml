@@ -110,3 +110,10 @@
         dest: "{{ xfce4_terminal_config_dir }}/terminalrc"
 
   become_user: "{{ i3wm_user }}"
+
+- name: Upload Xorg libinput.conf
+  template:
+    src: xorg/libinput.conf.j2
+    dest: /usr/share/X11/xorg.conf.d/40-libinput.conf
+    mode: 0644
+
