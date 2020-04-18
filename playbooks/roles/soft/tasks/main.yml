@@ -35,6 +35,12 @@
     state: present
     filename: vscode
 
+- name: Add MS Teams repo file
+  apt_repository:
+    repo: deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main
+    state: present
+    filename: teams
+
 - name: Add Atom key
   apt_key:
     url: https://packagecloud.io/AtomEditor/atom/gpgkey
@@ -72,6 +78,7 @@
     - typora
     - google-chrome-stable
     - code
+    - teams
     - atom
     - docker-ce
     - ansible
