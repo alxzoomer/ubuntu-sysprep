@@ -16,3 +16,4 @@
       - imagemagick
       - apt-transport-https
       - jq
+      - software-properties-common
