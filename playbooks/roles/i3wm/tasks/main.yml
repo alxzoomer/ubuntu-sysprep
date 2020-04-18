@@ -106,8 +106,11 @@
 
     - name: Copy xfce4 terminal config
       template:
-        src: xfce4/terminalrc.j2
-        dest: "{{ xfce4_terminal_config_dir }}/terminalrc"
+        src: "xfce4/{{ item.src }}"
+        dest: "{{ xfce4_terminal_config_dir }}/{{ item.dest }}"
+      loop:
+        - { src: "terminalrc.j2", dest: "terminalrc" }
+        - { src: "accels.scm.j2", dest: "accels.scm" }
 
   become_user: "{{ i3wm_user }}"
 
