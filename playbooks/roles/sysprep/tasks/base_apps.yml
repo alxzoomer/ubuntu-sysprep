@@ -14,3 +14,4 @@
       - file
       - tmux
       - imagemagick
+      - apt-transport-https

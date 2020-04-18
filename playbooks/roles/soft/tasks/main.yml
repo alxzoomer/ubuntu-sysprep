@@ -1,28 +1,14 @@
 ---
-- name: Copy Google Chrome repo file
-  copy:
-    src: google-chrome.list
-    dest: "{{ google_chrom_apt_file }}"
-    owner: root
-    group: root
-    mode: 0644
-  register: google_chrome_apt_file_result
-
 - name: Add Google Chrome key
-  shell: wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-  args:
-    warn: false
-  when: google_chrome_apt_file_result.changed
-
-- name: Update apt cache
-  apt:
-    update_cache: yes
-  when: google_chrome_apt_file_result.changed
-
-- name: Install Google Chrome
-  apt:
-    name: google-chrome-stable
+  apt_key:
+    url: https://dl-ssl.google.com/linux/linux_signing_key.pub
     state: present
+
+- name: Add Google Chrome repo file
+  apt_repository:
+    repo: deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+    state: present
+    filename: google-chrome
 
 - name: Add apt key for Typora
   apt_key:
@@ -35,15 +21,56 @@
     state: present
     filename: typora
 
-- name: Install Typora
-  apt:
-    name: typora
+- name: Add MS VS Code key
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+    keyring: /usr/share/keyrings/packages.microsoft.gpg
+
+- name: Add MS VS Code repo file
+  apt_repository:
+    repo: >
+      deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg]
+      https://packages.microsoft.com/repos/vscode stable main
+    state: present
+    filename: vscode
+
+- name: Add Atom key
+  apt_key:
+    url: https://packagecloud.io/AtomEditor/atom/gpgkey
     state: present
 
-- name: Install soft from ubuntu repo
+- name: Add Atom repo file
+  apt_repository:
+    repo: deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main
+    state: present
+    filename: atom
+
+- name: Add Docker key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add Docker repo file
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+    state: present
+    filename: docker
+
+- name: Install applications
   apt:
     name: "{{ item }}"
     state: present
   loop:
     - telegram-desktop
+    - typora
+    - google-chrome-stable
+    - code
+    - atom
+    - docker-ce
 
+- name: Add user to group docker
+  user:
+    name: "{{ i3wm_user }}"
+    groups: docker
+    append: yes
