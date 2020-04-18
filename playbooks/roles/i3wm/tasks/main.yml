@@ -19,6 +19,7 @@
       # X server clipboard
       - xsel
       - htop
+      - rxvt-unicode
 
 - name: Configure i3
   block:
