@@ -31,6 +31,9 @@ font pango:JetBrainsMono Nerd Font Medium 10
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -p default -i {{ i3lock_image_file }}
 exec --no-startup-id feh --bg-scale {{ i3lock_image_file }}
 
+# Set default brightness
+exec_always --no-startup-id xrandr --output $(xrandr | grep " connected" | cut -f1 -d" ") --brightness 0.9
+
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
