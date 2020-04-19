@@ -3,8 +3,9 @@
   authorized_key:
     user: "{{ item }}"
     state: present
-    key: "{{ lookup('file', '/Users/alexeyn/.ssh/{{ ssh_key_master }}') }}"
+    key: "{{ lookup('file', '{{ ssh_key_master }}') }}"
   loop: "{{ users }}"
+  when: ssh_key_master is defined
 
 - name: Give sudo without password
   lineinfile:
