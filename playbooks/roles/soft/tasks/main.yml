@@ -82,6 +82,10 @@
     - atom
     - docker-ce
     - ansible
+    - remmina
+    - remmina-plugin-rdp
+    - remmina-plugin-secret
+    - remmina-plugin-vnc
 
 - name: Add user to group docker
   user:
@@ -95,3 +99,4 @@
   loop:
     - https://azuredatastudiobuilds.blob.core.windows.net/releases/1.16.1/azuredatastudio-linux-1.16.1.deb
     - https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
+  when: install_deb | bool
